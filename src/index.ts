@@ -646,7 +646,7 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
   },
 };
 
-file.writeFile(
+if (!env.HOSTED) file.writeFile(
   "./openapi.yaml",
   yaml.dump(expressOpenAPI.apiDoc, { indent: 2 }),
   (error) => error ? console.error(error) : undefined,
