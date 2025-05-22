@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "55bd5adb-8f8b-46c7-8dc9-a6a7fd053912",
+		"name": "AnastasiaLabs x MoneyKit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6854454"
+	},
+	"item": [
+		{
+			"name": "v0",
+			"item": [
+				{
+					"name": "Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostV0}}/stats",
+							"host": [
+								"{{hostV0}}"
+							],
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Address Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostV0}}/addresses/:address?count=10",
+							"host": [
+								"{{hostV0}}"
+							],
+							"path": [
+								"addresses",
+								":address"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "10",
+									"description": "min: 1, max: 10, default: 5"
+								}
+							],
+							"variable": [
+								{
+									"key": "address",
+									"value": "",
+									"description": "bech32 address"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Address Transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostV0}}/addresses/:address/txs/:hash",
+							"host": [
+								"{{hostV0}}"
+							],
+							"path": [
+								"addresses",
+								":address",
+								"txs",
+								":hash"
+							],
+							"variable": [
+								{
+									"key": "address",
+									"value": "",
+									"description": "bech32 address"
+								},
+								{
+									"key": "hash",
+									"value": "",
+									"description": "64-character case-sensitive hexadecimal string"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostV0",
+			"value": "http://localhost:35183/api/v0",
+			"type": "string"
+		}
+	]
+}
