@@ -86,14 +86,5 @@ async function calcW1(user: Account[]): Promise<CalculatedScore<string[]>> {
  * @returns [Score, AdditionalData]
  */
 async function calcW2(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // const minswapDepositOrderCount = metadata.filter(
-  //   ({ label, json_metadata }) => {
-  //     const message = json_metadata?.msg;
-  //     return label === "674" && message && message.length && message[0] === "Minswap: Deposit Order";
-  //   }
-  // ).length;
-  // return [weighting.metadata * minswapDepositOrderCount / metadata.length, undefined];
   return [util.weighMetadataMsg("674", "Minswap Deposit Order".split(" "), metadata) * weighting.metadata, undefined];
 }

@@ -116,48 +116,5 @@ async function calcW2(
  * @returns [Score, AdditionalData]
  */
 async function calcW3(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // let score = 0;
-
-  // const minswap = "Minswap";
-  // const withdraw = "Withdraw";
-  // const liquidity = "liquidity";
-
-  // for (const { label, json_metadata } of metadata) {
-  //   try {
-  //     if (label === "674") {
-  //       for (const message of json_metadata?.msg) {
-  //         if (message.startsWith(minswap)) {
-  //           score += 10;
-  //         } else if (message.toLowerCase().startsWith(minswap.toLowerCase())) {
-  //           score += 5;
-  //         } else if (message.includes(minswap)) {
-  //           score += 2;
-  //         } else if (message.toLowerCase().includes(minswap.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (message.includes(withdraw)) {
-  //           score += 10;
-  //         } else if (message.toLowerCase().includes(withdraw.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (message.endsWith(liquidity)) {
-  //           score += 10;
-  //         } else if (message.includes(liquidity)) {
-  //           score += 2;
-  //         }
-
-  //         if (score) break;
-  //       }
-  //     }
-  //   } catch {
-  //     continue;
-  //   }
-  // }
-
-  // return [weighting.metadata * score / 30, undefined];
   return [util.weighMetadataMsg("674", "Minswap Withdraw liquidity".split(" "), metadata) * weighting.metadata, undefined];
 }

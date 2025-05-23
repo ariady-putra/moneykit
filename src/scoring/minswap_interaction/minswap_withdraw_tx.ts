@@ -112,16 +112,5 @@ async function calcW2(withdrawal?: Asset): Promise<CalculatedScore<undefined>> {
  * @returns [Score, AdditionalData]
  */
 async function calcW3(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // const minswapOrderExecuted = metadata.filter(
-  //   ({ label, json_metadata }) => {
-  //     return label === "674" && json_metadata?.msg?.find(
-  //       (message: string) =>
-  //         message === "Minswap: Order Executed"
-  //     );
-  //   }
-  // );
-  // return [weighting.metadata * minswapOrderExecuted.length / metadata.length, undefined];
   return [util.weighMetadataMsg("674", "Minswap Order Executed".split(" "), metadata) * weighting.metadata, undefined];
 }

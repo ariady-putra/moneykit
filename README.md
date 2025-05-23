@@ -1,6 +1,6 @@
 # Anastasia Labs X MoneyKit - Transaction Manifests
 
-![image](https://github.com/user-attachments/assets/e74e6ccc-0443-41d4-9d04-f99d740def9f)
+![image](https://cardano.ideascale.com/a/community-id/163/attachments/embedded-files/5-4227ea-42de33/png)
 
 ## FinTech Platform Integration for Cardano
 

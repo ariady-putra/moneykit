@@ -86,52 +86,5 @@ async function calcW1(user: Account[]): Promise<CalculatedScore<string | undefin
  * @returns [Score, AdditionalData]
  */
 async function calcW2(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // let score = 0;
-
-  // const minswap = "Minswap";
-  // const withdraw = "Withdraw";
-  // const order = "Order";
-
-  // for (const { label, json_metadata } of metadata) {
-  //   try {
-  //     if (label === "674") {
-  //       for (const message of json_metadata?.msg) {
-  //         if (message.startsWith(minswap)) {
-  //           score += 10;
-  //         } else if (message.toLowerCase().startsWith(minswap.toLowerCase())) {
-  //           score += 5;
-  //         } else if (message.includes(minswap)) {
-  //           score += 2;
-  //         } else if (message.toLowerCase().includes(minswap.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (message.includes(withdraw)) {
-  //           score += 2;
-  //         } else if (message.toLowerCase().includes(withdraw.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (message.endsWith(order)) {
-  //           score += 10;
-  //         } else if (message.toLowerCase().endsWith(order.toLowerCase())) {
-  //           score += 5;
-  //         } else if (message.includes(order)) {
-  //           score += 2;
-  //         } else if (message.toLowerCase().includes(order.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (score) break;
-  //       }
-  //     }
-  //   } catch {
-  //     continue;
-  //   }
-  // }
-
-  // return [weighting.metadata * score / 22, undefined];
   return [util.weighMetadataMsg("674", "Minswap Withdraw Order".split(" "), metadata) * weighting.metadata, undefined];
 }

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as svc from "./svc/_";
+import { logger } from "./util/_";
 
 export async function getDescriberStats(req: Request, rsp: Response) {
   try {
@@ -83,7 +84,7 @@ function _log(client: string,
   request: { path: string, time: number; },
   response: { body: string, time: number; },
   process: { uuid: string, time: number; }) {
-  console.log({ client, request, response, process });
+  logger.log.info({ client, request, response, process });
 }
 
 function _logError(
@@ -92,7 +93,7 @@ function _logError(
   time: number,
   error: any,
 ) {
-  console.error({ client, path, time, error });
+  logger.log.error({ client, path, time, error });
 }
 
 function _respondError(request: Request, response: Response, error: any, status: number = 500) {

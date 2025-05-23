@@ -66,16 +66,5 @@ async function calcW1(other: Account[]): Promise<CalculatedScore<undefined>> {
  * @returns [Score, AdditionalData]
  */
 async function calcW2(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // const wingriders = metadata.filter(
-  //   ({ label, json_metadata }) => {
-  //     return label === "674" && json_metadata?.msg?.find(
-  //       (message: string) =>
-  //         message.toUpperCase().includes("WINGRIDERS")
-  //     );
-  //   }
-  // );
-  // return [weighting.metadata * wingriders.length / metadata.length, undefined];
   return [util.weighMetadataMsg("674", ["WingRiders"], metadata) * weighting.metadata, undefined];
 }

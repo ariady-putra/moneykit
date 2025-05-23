@@ -1,5 +1,6 @@
 export * as bf from "./blockfrost";
 export * as cache from "./cache";
+export * as logger from "./logger";
 export * as lucid from "./lucid";
 
 import { Amounts, ScDesc } from "../types/_";

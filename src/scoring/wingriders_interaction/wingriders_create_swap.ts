@@ -78,45 +78,5 @@ async function calcW1(user: Account[]): Promise<CalculatedScore<undefined>> {
  * @returns [Score, AdditionalData]
  */
 async function calcW2(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // let score = 0;
-
-  // const wingriders = "WingRiders";
-  // const swap = "Swap";
-
-  // for (const { label, json_metadata } of metadata) {
-  //   try {
-  //     if (label === "674") {
-  //       for (const message of json_metadata?.msg) {
-  //         if (message.startsWith(wingriders)) {
-  //           score += 10;
-  //         } else if (message.toLowerCase().startsWith(wingriders.toLowerCase())) {
-  //           score += 5;
-  //         } else if (message.includes(wingriders)) {
-  //           score += 2;
-  //         } else if (message.toLowerCase().includes(wingriders.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (message.endsWith(swap)) {
-  //           score += 10;
-  //         } else if (message.toLowerCase().endsWith(swap.toLowerCase())) {
-  //           score += 5;
-  //         } else if (message.includes(swap)) {
-  //           score += 2;
-  //         } else if (message.toLowerCase().includes(swap.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (score) break;
-  //       }
-  //     }
-  //   } catch {
-  //     continue;
-  //   }
-  // }
-
-  // return [weighting.metadata * score / 20, undefined];
   return [util.weighMetadataMsg("674", "WingRiders Swap".split(" "), metadata) * weighting.metadata, undefined];
 }

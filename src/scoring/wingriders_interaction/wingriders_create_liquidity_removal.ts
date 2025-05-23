@@ -115,16 +115,5 @@ async function calcW2(other: Account[]): Promise<CalculatedScore<undefined>> {
  * @returns [Score, AdditionalData]
  */
 async function calcW3(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // const wingridersLiquidityRemovalOrderCount = metadata.filter(
-  //   ({ label, json_metadata }) => {
-  //     const message = json_metadata?.msg;
-  //     return label === "674" && message && message.length &&
-  //       message[0].toUpperCase().startsWith("WINGRIDERS") &&
-  //       message[0].toLowerCase().endsWith("liquidity");
-  //   }
-  // ).length;
-  // return [weighting.metadata * wingridersLiquidityRemovalOrderCount / metadata.length, undefined];
   return [util.weighMetadataMsg("674", "WingRiders liquidity".split(" "), metadata) * weighting.metadata, undefined];
 }

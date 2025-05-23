@@ -4,7 +4,7 @@ info:
   license:
     name: MIT
     url: ../LICENSE
-openapi: 3.1.1
+openapi: 3.0.4
 servers:
   - description: Development Server
     url: http://127.0.0.1:35183
@@ -117,11 +117,13 @@ components:
           title: Transaction Category
           description: Transaction categories supported by the service.
           type: object
+          nullable: false
           properties:
             names:
               title: Category Names
               description: Transaction category names.
               type: array
+              nullable: false
               items:
                 type: string
                 uniqueItems: true
@@ -129,6 +131,7 @@ components:
               title: Category Count
               description: Transaction category count.
               type: integer
+              nullable: false
           required:
             - names
             - count
@@ -136,11 +139,13 @@ components:
           title: dApp Projects
           description: Supported dApp projects recognized by the service.
           type: object
+          nullable: false
           properties:
             names:
               title: Project Names
               description: dApp project names.
               type: array
+              nullable: false
               items:
                 type: string
                 uniqueItems: true
@@ -148,6 +153,7 @@ components:
               title: Project Count
               description: dApp project count.
               type: integer
+              nullable: false
           required:
             - names
             - count
@@ -310,9 +316,11 @@ components:
       properties:
         currency:
           type: string
+          nullable: false
           example: ADA
         amount:
           type: number
+          nullable: false
       required:
         - currency
         - amount
@@ -322,11 +330,13 @@ components:
         address:
           title: Bech32 Cardano Address
           type: string
+          nullable: false
           format: addr1_...
           example: addr1_...
         role:
           description: Role associated with during the particular transaction.
           type: string
+          nullable: false
           format: User Address | Unknown Address | Unknown Script | etc.
           example: User Address | Unknown Address | Unknown Script | etc.
         total:
@@ -334,6 +344,7 @@ components:
             The aggregate amount of the movement of values during the particular
             transaction.
           type: array
+          nullable: false
           items:
             $ref: '#/components/schemas/Asset'
       required:
@@ -347,25 +358,30 @@ components:
           title: Version Number
           description: The manifest format version number.
           type: integer
+          nullable: false
         id:
           title: Manifest UUID
           description: The manifest UUID.
           type: string
+          nullable: false
           example: 12345678-1234-1234-1234-1234567890ab
         institution:
           title: Institution Info
           description: The information about the institution.
           type: object
+          nullable: false
           properties:
             name:
               title: Institution Name
               description: The name of the institution.
               type: string
+              nullable: false
               example: Cardano
             network:
               title: Institution Network
               description: The network of the institution.
               type: string
+              nullable: false
               example: Mainnet
           required:
             - name
@@ -374,10 +390,12 @@ components:
           title: Transactions Info
           description: The information about the transactions.
           type: array
+          nullable: false
           items:
             title: Transaction Info
             description: The information about a transaction.
             type: object
+            nullable: false
             properties:
               transaction_id:
                 title: Transaction Hash
@@ -385,38 +403,46 @@ components:
                   The transaction hash that can be queried on a Cardano
                   blockchain explorer.
                 type: string
+                nullable: false
                 example: Tx Hash
               timestamp:
                 title: Timestamp
                 description: The transaction timestamp in epoch millisecond.
                 type: integer
+                nullable: false
               type:
                 title: Transaction Type
                 description: The value is one of the transaction categories.
                 type: string
+                nullable: false
                 example: undefined
               description:
                 title: Transaction Description
                 description: The human-readable description of the transaction.
                 type: string
+                nullable: false
                 example: undefined
               confidence:
                 title: Confidence Score
                 description: Transaction type/description confidence score.
                 type: integer
+                nullable: true
                 minimum: 0
                 maximum: 100
               accounts:
                 title: Transaction Accounts
                 description: Accounts associated with the particular transaction.
                 type: object
+                nullable: false
                 properties:
                   user:
                     type: array
+                    nullable: false
                     items:
                       $ref: '#/components/schemas/Account'
                   other:
                     type: array
+                    nullable: false
                     items:
                       $ref: '#/components/schemas/Account'
                 required:
@@ -430,16 +456,18 @@ components:
                 title: Transaction Metadata
                 description: Metadata attached during the particular transaction, if any.
                 type: array
+                nullable: false
                 items:
                   type: object
-          required:
-            - transaction_id
-            - timestamp
-            - type
-            - description
-            - accounts
-            - network_fee
-            - metadata
+            required:
+              - transaction_id
+              - timestamp
+              - type
+              - description
+              - confidence
+              - accounts
+              - network_fee
+              - metadata
       required:
         - version
         - id
@@ -452,6 +480,7 @@ components:
           title: Error Message
           description: Describes the error reason.
           type: string
+          nullable: false
       required:
         - error
 security: []

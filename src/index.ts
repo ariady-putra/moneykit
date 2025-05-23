@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 import { env } from "process";
+import { logger } from "./util/_";
 import express, { Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 
@@ -16,7 +17,8 @@ app.use(express.json());
 const port = env.HOSTED ? parseInt(`${env.PORT}`) : 35183;
 const server = app.listen(port,
   () =>
-    console.log(env.HOSTED ? server.address() : `http://localhost:${port}`),
+    // console.log(env.HOSTED ? server.address() : `http://localhost:${port}`),
+    logger.log.info(env.HOSTED ? server.address() : `http://localhost:${port}`),
 );
 
 const notFound =
@@ -84,7 +86,7 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
         url: "../LICENSE",
       },
     },
-    openapi: "3.1.1",
+    openapi: "3.0.4",
     servers: [
       {
         description: "Development Server",
@@ -212,11 +214,13 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
               title: "Transaction Category",
               description: "Transaction categories supported by the service.",
               type: "object",
+              nullable: false,
               properties: {
                 names: {
                   title: "Category Names",
                   description: "Transaction category names.",
                   type: "array",
+                  nullable: false,
                   items: {
                     type: "string",
                     uniqueItems: true,
@@ -226,6 +230,7 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
                   title: "Category Count",
                   description: "Transaction category count.",
                   type: "integer",
+                  nullable: false,
                 },
               },
               required: [
@@ -237,11 +242,13 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
               title: "dApp Projects",
               description: "Supported dApp projects recognized by the service.",
               type: "object",
+              nullable: false,
               properties: {
                 names: {
                   title: "Project Names",
                   description: "dApp project names.",
                   type: "array",
+                  nullable: false,
                   items: {
                     type: "string",
                     uniqueItems: true,
@@ -251,6 +258,7 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
                   title: "Project Count",
                   description: "dApp project count.",
                   type: "integer",
+                  nullable: false,
                 },
               },
               required: [
@@ -426,10 +434,12 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
           properties: {
             currency: {
               type: "string",
+              nullable: false,
               example: "ADA",
             },
             amount: {
               type: "number",
+              nullable: false,
             },
           },
           required: [
@@ -444,18 +454,21 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
             address: {
               title: "Bech32 Cardano Address",
               type: "string",
+              nullable: false,
               format: "addr1_...",
               example: "addr1_...",
             },
             role: {
               description: "Role associated with during the particular transaction.",
               type: "string",
+              nullable: false,
               format: "User Address | Unknown Address | Unknown Script | etc.",
               example: "User Address | Unknown Address | Unknown Script | etc.",
             },
             total: {
               description: "The aggregate amount of the movement of values during the particular transaction.",
               type: "array",
+              nullable: false,
               items: {
                 $ref: "#/components/schemas/Asset",
               },
@@ -475,28 +488,33 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
               title: "Version Number",
               description: "The manifest format version number.",
               type: "integer",
+              nullable: false,
             },
             id: {
               title: "Manifest UUID",
               description: "The manifest UUID.",
               type: "string",
+              nullable: false,
               example: "12345678-1234-1234-1234-1234567890ab",
             },
             institution: {
               title: "Institution Info",
               description: "The information about the institution.",
               type: "object",
+              nullable: false,
               properties: {
                 name: {
                   title: "Institution Name",
                   description: "The name of the institution.",
                   type: "string",
+                  nullable: false,
                   example: "Cardano",
                 },
                 network: {
                   title: "Institution Network",
                   description: "The network of the institution.",
                   type: "string",
+                  nullable: false,
                   example: "Mainnet",
                 },
               },
@@ -509,39 +527,45 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
               title: "Transactions Info",
               description: "The information about the transactions.",
               type: "array",
+              nullable: false,
               items: {
                 title: "Transaction Info",
                 description: "The information about a transaction.",
                 type: "object",
+                nullable: false,
                 properties: {
                   transaction_id: {
                     title: "Transaction Hash",
                     description: "The transaction hash that can be queried on a Cardano blockchain explorer.",
                     type: "string",
+                    nullable: false,
                     example: "Tx Hash"
                   },
                   timestamp: {
                     title: "Timestamp",
                     description: "The transaction timestamp in epoch millisecond.",
                     type: "integer",
+                    nullable: false,
                   },
                   type: {
                     title: "Transaction Type",
                     description: "The value is one of the transaction categories.",
                     type: "string",
+                    nullable: false,
                     example: "undefined",
                   },
                   description: {
                     title: "Transaction Description",
                     description: "The human-readable description of the transaction.",
                     type: "string",
+                    nullable: false,
                     example: "undefined",
                   },
                   confidence: {
                     title: "Confidence Score",
                     description: "Transaction type/description confidence score.",
                     type: "integer",
-                    // nullable: true,
+                    nullable: true,
                     minimum: 0,
                     maximum: 100,
                   },
@@ -549,11 +573,13 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
                     title: "Transaction Accounts",
                     description: "Accounts associated with the particular transaction.",
                     type: "object",
+                    nullable: false,
                     properties: {
                       user: {
                         // title: "User Accounts",
                         // description: "Accounts associated with the request address.",
                         type: "array",
+                        nullable: false,
                         items: {
                           $ref: "#/components/schemas/Account",
                         },
@@ -562,6 +588,7 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
                         // title: "Other Accounts",
                         // description: "Accounts not associated with the request address invovled during the particular transaction.",
                         type: "array",
+                        nullable: false,
                         items: {
                           $ref: "#/components/schemas/Account",
                         },
@@ -586,21 +613,23 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
                     title: "Transaction Metadata",
                     description: "Metadata attached during the particular transaction, if any.",
                     type: "array",
+                    nullable: false,
                     items: {
                       type: "object",
                     },
                   },
                 },
+                required: [
+                  "transaction_id",
+                  "timestamp",
+                  "type",
+                  "description",
+                  "confidence",
+                  "accounts",
+                  "network_fee",
+                  "metadata",
+                ],
               },
-              required: [
-                "transaction_id",
-                "timestamp",
-                "type",
-                "description",
-                "accounts",
-                "network_fee",
-                "metadata",
-              ],
             },
           },
           required: [
@@ -618,6 +647,7 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
               title: "Error Message",
               description: "Describes the error reason.",
               type: "string",
+              nullable: false,
             },
           },
           required: [
@@ -649,7 +679,8 @@ const expressOpenAPI: openapi.ExpressOpenAPIArgs = {
 if (!env.HOSTED) file.writeFile(
   "./openapi.yaml",
   yaml.dump(expressOpenAPI.apiDoc, { indent: 2 }),
-  (error) => error ? console.error(error) : undefined,
+  // (error) => error ? console.error(error) : undefined,
+  (error) => error ? logger.log.error(error) : undefined,
 );
 
 openapi.initialize(expressOpenAPI);

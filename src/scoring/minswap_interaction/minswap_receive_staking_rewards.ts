@@ -75,46 +75,5 @@ async function calcW1(user: Account[]): Promise<CalculatedScore<Record<string, n
  * @returns [Score, AdditionalData]
  */
 async function calcW2(metadata: Record<string, any>[]): Promise<CalculatedScore<undefined>> {
-  // if (!metadata.length) return [0, undefined];
-
-  // let score = 0;
-
-  // const minswap = "Minswap";
-  // const staking = "staking";
-  // const rewards = "rewards";
-
-  // for (const { label, json_metadata } of metadata) {
-  //   try {
-  //     if (label === "674") {
-  //       for (const message of json_metadata?.msg) {
-  //         if (message.startsWith(minswap)) {
-  //           score += 10;
-  //         } else if (message.toLowerCase().startsWith(minswap.toLowerCase())) {
-  //           score += 5;
-  //         } else if (message.includes(minswap)) {
-  //           score += 2;
-  //         } else if (message.toLowerCase().includes(minswap.toLowerCase())) {
-  //           score += 1;
-  //         }
-
-  //         if (message.toLowerCase().includes(staking)) {
-  //           score += 5;
-  //         }
-
-  //         if (message.toLowerCase().endsWith(rewards)) {
-  //           score += 5;
-  //         } else if (message.toLowerCase().includes(rewards)) {
-  //           score += 1;
-  //         }
-
-  //         if (score) break;
-  //       }
-  //     }
-  //   } catch {
-  //     continue;
-  //   }
-  // }
-
-  // return [weighting.metadata * score / 20, undefined];
   return [util.weighMetadataMsg("674", "Minswap staking rewards".split(" "), metadata) * weighting.metadata, undefined];
 }
