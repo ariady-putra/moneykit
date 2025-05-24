@@ -6,6 +6,7 @@
   "scripts": {
     "start": "pnpm pm2",
     "dev": "pnpm crfa && nodemon src/index.ts -w . -w .env -e ts,js,mjs,json,env",
+    "test": "vitest run --coverage",
     "crfa": "test -d ./crfa-offchain-data-registry/.git || git clone https://github.com/Cardano-Fans/crfa-offchain-data-registry.git && git -C ./crfa-offchain-data-registry/ pull",
     "build": "pnpm crfa && tsc --outDir build",
     "pm2": "pnpm build && pm2-runtime start build/index.js --env production 2>/dev/null",
@@ -32,9 +33,12 @@
     "@types/express": "5.0.1",
     "@types/js-yaml": "4.0.9",
     "@types/node": "22.14.1",
+    "@vitest/coverage-istanbul": "3.1.4",
+    "@vitest/coverage-v8": "3.1.4",
     "nodemon": "3.1.10",
     "ts-node": "10.9.2",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "vitest": "3.1.4"
   },
   "engines": {
     "node": "22.x",
